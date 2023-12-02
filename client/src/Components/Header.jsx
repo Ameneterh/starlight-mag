@@ -5,6 +5,24 @@ import { FaBars, FaSearch, FaTimes } from "react-icons/fa";
 export default function Header() {
   const [nav, setNav] = useState(false);
 
+  const links = [
+    {
+      id: 1,
+      title: "home",
+      url: "/",
+    },
+    {
+      id: 2,
+      title: "articles",
+      url: "/articles",
+    },
+    {
+      id: 3,
+      title: "about",
+      url: "/about",
+    },
+  ];
+
   return (
     <div className="w-full bg-slate-400 flex flex-col shadow-lg md:sticky top-0 left-0 z-30">
       <div className="flex justify-center items-center w-full bg-[#943d24] p-1 border-b-[3px] border-slate-100">
@@ -40,24 +58,15 @@ export default function Header() {
 
         {/* header links */}
         <div className="hidden md:flex gap-4 text-lg uppercase">
-          <Link
-            to="/"
-            className="hover:underline hover:font-semibold underline-offset-8"
-          >
-            home
-          </Link>
-          <Link
-            to="/articles"
-            className="hover:underline hover:font-semibold underline-offset-8"
-          >
-            articles
-          </Link>
-          <Link
-            to="/about"
-            className="hover:underline hover:font-semibold underline-offset-8"
-          >
-            about
-          </Link>
+          {links.map((eachLink) => (
+            <Link
+              id={eachLink.id}
+              to={eachLink.url}
+              className="hover:underline hover:font-semibold underline-offset-8"
+            >
+              {eachLink.title}
+            </Link>
+          ))}
         </div>
 
         {/* show on mobile */}
@@ -76,27 +85,16 @@ export default function Header() {
         {nav && (
           <div className="flex flex-col justify-center items-center w-full h-[50%] absolute top-10 right-0 bg-gray-950 opacity-95 gap-8 text-white font-bold z-10">
             <div className="flex flex-col items-center justify-start gap-12 text-lg uppercase">
-              <Link
-                to="/"
-                className="hover:underline hover:font-semibold underline-offset-8"
-                onClick={() => setNav(!nav)}
-              >
-                home
-              </Link>
-              <Link
-                to="/articles"
-                className="hover:underline hover:font-semibold underline-offset-8"
-                onClick={() => setNav(!nav)}
-              >
-                articles
-              </Link>
-              <Link
-                to="/about"
-                className="hover:underline hover:font-semibold underline-offset-8"
-                onClick={() => setNav(!nav)}
-              >
-                about
-              </Link>
+              {links.map((eachLink) => (
+                <Link
+                  id={eachLink.id}
+                  to={eachLink.url}
+                  className="hover:underline hover:font-semibold underline-offset-8"
+                  onClick={() => setNav(!nav)}
+                >
+                  {eachLink.title}
+                </Link>
+              ))}
             </div>
           </div>
         )}
