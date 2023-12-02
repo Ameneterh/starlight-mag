@@ -53,10 +53,10 @@ export default function Header() {
             articles
           </Link>
           <Link
-            to="/contact"
+            to="/about"
             className="hover:underline hover:font-semibold underline-offset-8"
           >
-            contact
+            about
           </Link>
         </div>
 
@@ -91,11 +91,11 @@ export default function Header() {
                 articles
               </Link>
               <Link
-                to="/contact"
+                to="/about"
                 className="hover:underline hover:font-semibold underline-offset-8"
                 onClick={() => setNav(!nav)}
               >
-                contact
+                about
               </Link>
             </div>
           </div>
