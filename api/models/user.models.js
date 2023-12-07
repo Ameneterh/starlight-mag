@@ -7,23 +7,17 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    username: {
-      type: String,
-      required: true,
-      unique: true,
-    },
     email: {
       type: String,
       required: true,
       unique: true,
     },
-    password: {
-      type: String,
-      required: true,
-    },
     phoneNumber: {
       type: String,
       required: true,
+    },
+    socialMedia: {
+      type: Array,
     },
     avatar: {
       type: image,
@@ -37,8 +31,14 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    socialMedia: {
-      type: Array,
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
     },
   },
   { timestamps: true }

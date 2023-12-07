@@ -44,7 +44,7 @@ export default function Header() {
 
         {/* header search form */}
         <div className="">
-          <form className="flex items-center justify-betweenw-[300px] md:w-[600px] h-10 rounded-full py-1 px-3 bg-white border-2 border-black">
+          <form className="flex items-center justify-betweenw-[300px] md:w-[600px] h-10 rounded-full py-1 px-3 bg-white border-2 border-slate-200">
             <input
               type="text"
               placeholder="search for article"

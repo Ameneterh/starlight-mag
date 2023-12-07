@@ -40,27 +40,18 @@ export default function Footer() {
           <h2 className="font-semibold text-lg">Link us on Social Media:</h2>
           <div className="hidden md:flex flex-col">
             <ul className="flex flex-col gap-1">
-              <li className="p-1 border-2 rounded-md bg-slate-200">
-                <Link
-                  to="/"
-                  className="flex gap-1 hover:scale-110 transition-all"
-                >
+              <li className="p-1 border-2 rounded-md bg-slate-400 hover:scale-110 transition-all">
+                <Link to="/" className="flex gap-1">
                   <FaFacebook className="text-white text-2xl" /> Facebook
                 </Link>
               </li>
-              <li className="p-1 border-2 rounded-md bg-slate-200">
-                <Link
-                  to="/"
-                  className="flex gap-1 hover:scale-110 transition-all"
-                >
+              <li className="p-1 border-2 rounded-md bg-slate-400 hover:scale-110 transition-all">
+                <Link to="/" className="flex gap-1">
                   <FaYoutube className="text-white text-2xl" /> YouTube
                 </Link>
               </li>
-              <li className="p-1 border-2 rounded-md bg-slate-200">
-                <Link
-                  to="/"
-                  className="flex gap-1 hover:scale-110 transition-all"
-                >
+              <li className="p-1 border-2 rounded-md bg-slate-400 hover:scale-110 transition-all">
+                <Link to="/" className="flex gap-1">
                   <FaTwitter className="text-white text-2xl" /> Twitter (X)
                 </Link>
               </li>
