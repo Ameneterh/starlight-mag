@@ -27,12 +27,12 @@ function App() {
         <Route path="/sl-admin" element={<SLAdmin />} />
         <Route path="/author-bio" element={<AuthorBio />} />
         <Route path="/search" element={<SearchArticles />} />
-        <Route element={<PrivateRoute />}>
-          <Route path="/sign-up" element={<Signup />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/create-listing" element={<CreateListing />} />
-          <Route path="/update-listing/" element={<UpdateListing />} />
-        </Route>
+        {/* <Route element={<PrivateRoute />}> */}
+        <Route path="/sign-up" element={<Signup />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/create-listing" element={<CreateListing />} />
+        <Route path="/update-listing/" element={<UpdateListing />} />
+        {/* </Route> */}
       </Routes>
       <Footer />
     </BrowserRouter>

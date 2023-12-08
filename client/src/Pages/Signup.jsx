@@ -73,6 +73,27 @@ export default function SignUp() {
           onChange={handleChange}
         />
         <input
+          type="file"
+          placeholder="avatar"
+          className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
+          id="avatar"
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          placeholder="role"
+          className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
+          id="role"
+          onChange={handleChange}
+        />
+        <textarea
+          type="text"
+          placeholder="info about author"
+          className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
+          id="aboutAuthor"
+          onChange={handleChange}
+        />
+        <input
           type="text"
           placeholder="username"
           className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
@@ -101,7 +122,6 @@ export default function SignUp() {
         </Link>
       </div>
       {error && <p className="text-red-500 mt-5">{error}</p>}
-      {/* <p className="text-red-500 mt-5">Error if any shows here</p> */}
     </div>
   );
 }
