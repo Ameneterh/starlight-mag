@@ -60,7 +60,7 @@ export default function Header() {
         <div className="hidden md:flex gap-4 text-lg uppercase">
           {links.map((eachLink) => (
             <Link
-              id={eachLink.id}
+              key={eachLink.id}
               to={eachLink.url}
               className="hover:underline hover:font-semibold underline-offset-8"
             >
