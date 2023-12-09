@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function Profile() {
-  return <div>Author</div>;
+  return <div>Profile</div>;
 }

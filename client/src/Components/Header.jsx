@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaSearch, FaTimes } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 export default function Header() {
+  const { currentUser } = useSelector((state) => state.user);
+
   const [nav, setNav] = useState(false);
 
   const links = [
@@ -57,7 +60,7 @@ export default function Header() {
         </div>
 
         {/* header links */}
-        <div className="hidden md:flex gap-4 text-lg uppercase">
+        <div className="hidden md:flex gap-4 text-lg uppercase items-center">
           {links.map((eachLink) => (
             <Link
               key={eachLink.id}
@@ -67,6 +70,18 @@ export default function Header() {
               {eachLink.title}
             </Link>
           ))}
+
+          <Link to="/profile">
+            {currentUser ? (
+              <img
+                src={currentUser.avatar}
+                alt="profile"
+                className="rounded-full h-8 w-8 object-cover"
+              />
+            ) : (
+              <></>
+            )}
+          </Link>
         </div>
 
         {/* show on mobile */}
