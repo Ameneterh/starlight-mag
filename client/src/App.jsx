@@ -13,12 +13,14 @@ import SearchArticles from "./Pages/SearchArticles";
 import PrivateRoute from "./Components/PrivateRoute";
 import CreateListing from "./Pages/CreateListing";
 import UpdateListing from "./Pages/UpdateListing";
+import ScrollToTop from "./ScrollToTop";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" exact element={<Home />} />

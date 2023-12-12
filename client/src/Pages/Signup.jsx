@@ -48,7 +48,7 @@ export default function SignUp() {
           type="text"
           placeholder="full name"
           className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
-          id="fullname"
+          id="authorName"
           onChange={handleChange}
         />
         <input
@@ -62,14 +62,14 @@ export default function SignUp() {
           type="text"
           placeholder="phone number"
           className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
-          id="phonenumber"
+          id="phoneNumber"
           onChange={handleChange}
         />
         <input
           type="text"
           placeholder="social media accounts"
           className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
-          id="phonenumber"
+          id="socialMedia"
           onChange={handleChange}
         />
         <input
