@@ -1,5 +1,6 @@
 import bcryptjs from "bcryptjs";
 import User from "../models/user.models.js";
+import { errorHandler } from "../utils/error.js";
 
 export const test = (req, res) => {
   res.json({ message: "Hello from Controller!" });
