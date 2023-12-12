@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const listingSchema = new mongoose.Schema(
   {
     imageUrl: {
-      type: image,
+      type: Array,
       required: true,
     },
     title: {
