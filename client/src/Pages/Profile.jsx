@@ -1,5 +1,5 @@
-import { useRef, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useRef, useState, useEffect } from "react";
 import {
   getDownloadURL,
   getStorage,
@@ -7,17 +7,22 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../firebase";
+import {
+  updateUserStart,
+  updateUserSuccess,
+  updateUserFailure,
+} from "../redux/user/userSlice";
+import { useDispatch } from "react-redux";
 
 export default function Profile() {
   const fileRef = useRef(null);
-
-  const handleChange = (e) => {};
 
   const { currentUser } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (file) {
@@ -49,10 +54,36 @@ export default function Profile() {
     );
   };
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(updateUserStart());
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(updateUserFailure(data.message));
+        return;
+      }
+      dispatch(updateUserSuccess(data));
+    } catch (error) {
+      dispatch(updateUserFailure(error.message));
+    }
+  };
+
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
-      <form className="flex flex-col gap-2">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-2">
         <input
           onChange={(e) => setFile(e.target.files[0])}
           type="file"
@@ -84,6 +115,7 @@ export default function Profile() {
           placeholder="full name"
           className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
           id="fullname"
+          defaultValue={currentUser.authorName}
           onChange={handleChange}
         />
         <input
@@ -91,6 +123,7 @@ export default function Profile() {
           placeholder="email"
           className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
           id="email"
+          defaultValue={currentUser.email}
           onChange={handleChange}
         />
         <input
@@ -98,6 +131,7 @@ export default function Profile() {
           placeholder="phone number"
           className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
           id="phonenumber"
+          defaultValue={currentUser.phoneNumber}
           onChange={handleChange}
         />
         <input
@@ -105,6 +139,7 @@ export default function Profile() {
           placeholder="social media accounts"
           className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
           id="socialMedia"
+          defaultValue={currentUser.socialMedia}
           onChange={handleChange}
         />
         <input
@@ -112,6 +147,7 @@ export default function Profile() {
           placeholder="role"
           className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
           id="role"
+          defaultValue={currentUser.role}
           onChange={handleChange}
         />
         <textarea
@@ -119,6 +155,7 @@ export default function Profile() {
           placeholder="info about author"
           className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
           id="aboutAuthor"
+          defaultValue={currentUser.aboutAuthor}
           onChange={handleChange}
         />
         <input
@@ -126,6 +163,7 @@ export default function Profile() {
           placeholder="username"
           className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
           id="username"
+          defaultValue={currentUser.username}
           onChange={handleChange}
         />
         <input
@@ -133,6 +171,7 @@ export default function Profile() {
           placeholder="password"
           className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
           id="password"
+          defaultValue={currentUser.password}
           onChange={handleChange}
         />
 
@@ -140,7 +179,8 @@ export default function Profile() {
           // disabled={loading}
           className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:80"
         >
-          {/* {loading ? "Loading ..." : "Sign Up"} */}update
+          update
+          {/* {loading ? "updating ..." : "update"} */}
         </button>
       </form>
       <div className="flex justify-between mt-5">
