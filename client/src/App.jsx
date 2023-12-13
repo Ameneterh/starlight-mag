@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Home from "./Pages/Home";
-import Articles from "./Pages/Articles";
 import About from "./Pages/About";
 import SLAdmin from "./Pages/SLAdmin";
 import Signup from "./Pages/Signup";
@@ -14,6 +13,7 @@ import PrivateRoute from "./Components/PrivateRoute";
 import CreateListing from "./Pages/CreateListing";
 import UpdateListing from "./Pages/UpdateListing";
 import ScrollToTop from "./ScrollToTop";
+import Listing from "./Pages/Listing";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -24,7 +24,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" exact element={<Home />} />
-        <Route path="/articles" element={<Articles />} />
+        <Route path="/listing/:listingId" element={<Listing />} />
         <Route path="/about" element={<About />} />
         <Route path="/sl-admin" element={<SLAdmin />} />
         <Route path="/author-bio" element={<AuthorBio />} />
