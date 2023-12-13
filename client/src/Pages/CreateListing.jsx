@@ -1,15 +1,15 @@
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
 import React, { useState } from "react";
 import { ThreeDots, Vortex } from "react-loader-spinner";
 
-// import {
-//   getDownloadURL,
-//   getStorage,
-//   ref,
-//   uploadBytesResumable,
-// } from "firebase/storage";
-// import { app } from "../firebase";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { app } from "../firebase";
 
 export default function CreateListing() {
   const { currentUser } = useSelector((state) => state.user);
@@ -17,14 +17,9 @@ export default function CreateListing() {
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     imageUrls: [],
-    name: "",
+    title: "",
+    edition: "",
     description: "",
-    category: "",
-    discount: false,
-    gift: false,
-    regularPrice: 1,
-    discountPrice: 0,
-    quantity: 0,
   });
   const [imageUploadError, setImageUploadError] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -34,62 +29,62 @@ export default function CreateListing() {
   console.log(formData);
 
   const handleImageSubmit = (e) => {
-    // if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
-    //   setUploading(true);
-    //   setImageUploadError(false);
-    //   const promises = [];
-    //   for (let i = 0; i < files.length; i++) {
-    //     promises.push(storeImage(files[i]));
-    //   }
-    //   Promise.all(promises)
-    //     .then((urls) => {
-    //       setFormData({
-    //         ...formData,
-    //         imageUrls: formData.imageUrls.concat(urls),
-    //       });
-    //       setImageUploadError(false);
-    //       setUploading(false);
-    //     })
-    //     .catch((err) => {
-    //       setImageUploadError("image upload failed (2 mb max per image");
-    //       setUploading(false);
-    //     });
-    // } else {
-    //   setImageUploadError("You can only upload 6 images per listing");
-    //   setUploading(false);
-    // }
+    if (files.length > 0 && files.length + formData.imageUrls.length < 2) {
+      setUploading(true);
+      setImageUploadError(false);
+      const promises = [];
+      for (let i = 0; i < files.length; i++) {
+        promises.push(storeImage(files[i]));
+      }
+      Promise.all(promises)
+        .then((urls) => {
+          setFormData({
+            ...formData,
+            imageUrls: formData.imageUrls.concat(urls),
+          });
+          setImageUploadError(false);
+          setUploading(false);
+        })
+        .catch((err) => {
+          setImageUploadError("image upload failed (2 mb max)");
+          setUploading(false);
+        });
+    } else {
+      setImageUploadError("You can only upload 1 image per listing");
+      setUploading(false);
+    }
   };
 
   const storeImage = async (file) => {
-    // return new Promise((resolve, reject) => {
-    //   const storage = getStorage(app);
-    //   const fileName = new Date().getTime() + file.name;
-    //   const storageRef = ref(storage, fileName);
-    //   const uploadTask = uploadBytesResumable(storageRef, file);
-    //   uploadTask.on(
-    //     "state_changed",
-    //     (snapshot) => {
-    //       const progress =
-    //         (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    //       console.log(`Upload is ${progress}% done`);
-    //     },
-    //     (error) => {
-    //       reject(error);
-    //     },
-    //     () => {
-    //       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-    //         resolve(downloadURL);
-    //       });
-    //     }
-    //   );
-    // });
+    return new Promise((resolve, reject) => {
+      const storage = getStorage(app);
+      const fileName = new Date().getTime() + file.name;
+      const storageRef = ref(storage, fileName);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(`Upload is ${progress}% done`);
+        },
+        (error) => {
+          reject(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            resolve(downloadURL);
+          });
+        }
+      );
+    });
   };
 
   const handleRemoveImage = (index) => {
-    // setFormData({
-    //   ...formData,
-    //   imageUrls: formData.imageUrls.filter((_, i) => i !== index),
-    // });
+    setFormData({
+      ...formData,
+      imageUrls: formData.imageUrls.filter((_, i) => i !== index),
+    });
   };
 
   const handleChange = (e) => {
@@ -141,117 +136,48 @@ export default function CreateListing() {
   };
 
   return (
-    <main className="p-3 max-w-4xl mx-auto">
+    <main className="p-3 max-w-4xl mx-auto h-screen">
       <h1 className="text-3xl font-semibold text-center my-7">
-        Create a Listing
+        Create an Article Listing
       </h1>
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
         <div className="flex flex-col gap-4 flex-1">
           <input
             type="text"
-            placeholder="Product Name"
+            placeholder="Article Title"
             className="border p-3 rounded-lg"
-            id="name"
-            maxLength="62"
+            id="title"
+            required
+            onChange={handleChange}
+            value={formData.title}
+          />
+          <input
+            type="text"
+            placeholder="Edition Number"
+            className="border p-3 rounded-lg"
+            id="edition"
+            maxLength="10"
             minLength="10"
             required
             onChange={handleChange}
-            value={formData.name}
+            value={formData.edition}
           />
           <textarea
             type="text"
-            placeholder="Description"
-            className="border p-3 rounded-lg"
+            placeholder="Short excerpt"
+            className="border p-3 rounded-lg h-56"
             id="description"
+            maxLength="250"
+            minLength="10"
             required
             onChange={handleChange}
             value={formData.description}
           />
-          <input
-            type="text"
-            placeholder="Category: [perfumes, hair, bags, others]"
-            className="border p-3 rounded-lg"
-            id="category"
-            maxLength="8"
-            minLength="4"
-            required
-            onChange={handleChange}
-            value={formData.category}
-          />
-
-          <div className="flex gap-6 flex-wrap">
-            <div className=" flex gap-2">
-              <input
-                onChange={handleChange}
-                checked={formData.discount}
-                type="checkbox"
-                id="discount"
-                className="w-5"
-              />
-              <span>Discount?</span>
-            </div>
-            <div className=" flex gap-2">
-              <input
-                onChange={handleChange}
-                checked={formData.gift}
-                type="checkbox"
-                id="gift"
-                className="w-5"
-              />
-              <span>Free Gift?</span>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap gap-6">
-            <div className="flex items-center gap-2">
-              <input
-                type="number"
-                id="regularPrice"
-                min="1"
-                max="500000"
-                required
-                onChange={handleChange}
-                value={formData.regularPrice}
-                className="p-2 border border-gray-300 rounded-lg"
-              />
-              <p>Regular Price</p>
-            </div>
-            {formData.discount && (
-              <div className="flex items-center gap-2">
-                <input
-                  type="number"
-                  id="discountPrice"
-                  min="0"
-                  max="500000"
-                  required
-                  onChange={handleChange}
-                  value={formData.discountPrice}
-                  className="p-2 border border-gray-300 rounded-lg"
-                />
-                <p>Discount Price</p>
-              </div>
-            )}
-            <div className="flex items-center gap-2">
-              <input
-                type="number"
-                id="quantity"
-                min="0"
-                max="500000"
-                required
-                onChange={handleChange}
-                value={formData.quantity}
-                className="p-2 border border-gray-300 rounded-lg"
-              />
-              <p>Quantity in Stock</p>
-            </div>
-          </div>
         </div>
         <div className="flex flex-col flex-1 gap-4">
           <p className="font-semibold">
-            Images:{" "}
-            <span className="font-normal text-gray-600 ml-2">
-              The first image will be the cover (max 6)
-            </span>
+            Add Edition Cover Image:{" "}
+            <span className="font-normal text-gray-600 ml-2">(max 2mb)</span>
           </p>
           <div className="flex gap-4">
             <input
@@ -302,7 +228,7 @@ export default function CreateListing() {
                 <img
                   src={url}
                   alt="listing image"
-                  className="w-20 h-20 object-cotain rounded-lg"
+                  className="w-14 h-20 object-cotain rounded-lg"
                 />
                 <button
                   type="button"
@@ -327,7 +253,7 @@ export default function CreateListing() {
               />
             ) : (
               <button
-                // disabled={loading || uploading}
+                disabled={loading || uploading}
                 className=" bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
               >
                 Create Listing
