@@ -88,13 +88,6 @@ export default function CreateListing() {
   };
 
   const handleChange = (e) => {
-    if (e.target.id === "discount" || e.target.id === "gift") {
-      setFormData({
-        ...formData,
-        [e.target.id]: e.target.checked,
-      });
-    }
-
     if (
       e.target.type === "number" ||
       e.target.type === "text" ||
@@ -108,31 +101,30 @@ export default function CreateListing() {
   };
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
-    // if (formData.imageUrls.length < 1)
-    //   return setError("You must upload at least one image");
-    // if (+formData.regularPrice < +formData.discountPrice)
-    //   return setError("Discount price must be lower than regular price");
-    // try {
-    //   setLoading(true);
-    //   setError(false);
-    //   const res = await fetch("/api/listing/create", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ ...formData, userRef: currentUser._id }),
-    //   });
-    //   const data = await res.json();
-    //   setLoading(false);
-    //   if (data.success === false) {
-    //     setError(data.message);
-    //   }
-    //   navigate(`/listing/${data._id}`);
-    // } catch (error) {
-    //   setError(error.message);
-    //   setLoading(false);
-    // }
+    e.preventDefault();
+    if (formData.imageUrls.length < 1)
+      return setError("You must upload at least one image");
+
+    try {
+      setLoading(true);
+      setError(false);
+      const res = await fetch("/api/listing/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...formData, userRef: currentUser._id }),
+      });
+      const data = await res.json();
+      setLoading(false);
+      if (data.success === false) {
+        setError(data.message);
+      }
+      navigate(`/listing/${data._id}`);
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+    }
   };
 
   return (
