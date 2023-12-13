@@ -176,7 +176,7 @@ export default function CreateListing() {
               onChange={(e) => setFiles(e.target.files)}
               className="p-3 border border-gray-300 rounded w-full"
               type="file"
-              id="images"
+              id="imageUrl"
               accept="image/*"
               multiple
             />
