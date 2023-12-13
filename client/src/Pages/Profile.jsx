@@ -328,9 +328,11 @@ export default function Profile() {
                       <p className=" truncate">{listing.title}</p>
                     </Link>
                     <div className="flex items-center justify-between">
-                      <button className="text-green-700 uppercase hover:underline hover:font-semibold">
-                        Edit
-                      </button>
+                      <Link to={`/update-listing/${listing._id}`}>
+                        <button className="text-green-700 uppercase hover:underline hover:font-semibold">
+                          Edit
+                        </button>
+                      </Link>
                       <button
                         onClick={() => handleListingDelete(listing._id)}
                         className="text-red-700 uppercase hover:underline hover:font-semibold"
