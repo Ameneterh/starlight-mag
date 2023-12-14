@@ -162,12 +162,22 @@ export default function Profile() {
       <div className="w-full flex flex-col sm:flex-row gap-4">
         {/* p-3 max-w-lg mx-auto */}
         <div className="flex flex-col flex-1 p-3 max-w-lg border rounded-lg">
-          <button
-            onClick={handleShowListings}
-            className="text-green-700 w-full text-right"
-          >
-            Show My Listings
-          </button>
+          {/* sign out and show listing md screens */}
+          <div className="w-full hidden md:flex justify-between bg-slate-200 p-2 rounded-sm">
+            <span
+              onClick={handleSignOut}
+              className="text-red-700 cursor-pointer hover:font-semibold"
+            >
+              Sign Out
+            </span>
+            <button
+              onClick={handleShowListings}
+              className="text-green-700 text-right hover:font-semibold"
+            >
+              Show My Listings
+            </button>
+          </div>
+
           <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
           <form onSubmit={handleSubmit} className="flex flex-col gap-2">
             <input
@@ -231,14 +241,15 @@ export default function Profile() {
               defaultValue={currentUser.socialMedia}
               onChange={handleChange}
             />
-            <input
+            {/* <input
+              disabled
               type="text"
               placeholder="role"
               className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
               id="role"
               defaultValue={currentUser.role}
               onChange={handleChange}
-            />
+            /> */}
             <textarea
               type="text"
               placeholder="info about author"
@@ -270,13 +281,6 @@ export default function Profile() {
             >
               {loading ? "updating ..." : "update"}
             </button>
-
-            <Link
-              className="bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95"
-              to={"/create-listing"}
-            >
-              create listing
-            </Link>
           </form>
           <div className="flex justify-between mt-5">
             <span
@@ -285,47 +289,66 @@ export default function Profile() {
             >
               Delete Account
             </span>
+          </div>
+
+          <div className="w-full flex md:hidden justify-between bg-slate-200 p-2 rounded-sm mt-2">
             <span
               onClick={handleSignOut}
-              className="text-red-700 cursor-pointer"
+              className="text-red-700 cursor-pointer hover:font-semibold"
             >
               Sign Out
             </span>
+            <button
+              onClick={handleShowListings}
+              className="text-green-700 text-right hover:font-semibold"
+            >
+              Show My Listings
+            </button>
           </div>
-          <p className="text-red-700 mt-5">{error ? error : ""}</p>
-          <p className="text-green-700 mt-5">
-            {updateSuccess ? "User successfully updated!" : ""}
-          </p>
+
+          {error ? <p className="text-red-700 mt-5">{error}</p> : ""}
+
+          {updateSuccess ? (
+            <p className="text-green-700 mt-5">"User successfully updated!"</p>
+          ) : (
+            ""
+          )}
         </div>
 
         <div className="flex flex-col flex-1 p-3">
+          <Link
+            className="bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95"
+            to={"/create-listing"}
+          >
+            create listing
+          </Link>
           <p className="text-red-700 mt-2 text-xl font-semibold">
             {showListingsError ? "Error showing listings" : ""}
           </p>
           <h1 className="text-center mb-5 text-2xl font-semibold">
             Your Listings
           </h1>
-          <div className="flex gap-4 flex-wrap">
+          <div className="flex gap-4 flex-wrap w-full">
             {userListings &&
               userListings.length > 0 &&
               userListings.map((listing) => (
                 <div
                   key={listing._id}
-                  className=" border rounded-lg p-2 flex justify-between items-center gap-4"
+                  className="border rounded-lg p-2 flex items-center gap-2 w-[320px] h-[150px] shadow-md hover:shadow-lg transition-shadow bg-slate-200"
                 >
-                  <Link to={`/listing/${listing._id}`} className="">
+                  <Link to={`/listing/${listing._id}`} className="h-full w-1/3">
                     <img
                       src={listing.imageUrls[0]}
                       alt="listing image"
-                      className="h-50 w-20 object-contain rounded-lg"
+                      className="rounded-lg"
                     />
                   </Link>
-                  <div className="flex flex-col gap-6">
+                  <div className="flex flex-col justify-between h-full w-2/3">
                     <Link
-                      className="text-slate-700 font-semibold hover:underline flex-1"
+                      className="w-full text-slate-700 font-semibold hover:underline"
                       to={`/listing/${listing._id}`}
                     >
-                      <p className=" truncate">{listing.title}</p>
+                      <p className="break-normal w-full">{listing.title}</p>
                     </Link>
                     <div className="flex items-center justify-between">
                       <Link to={`/update-listing/${listing._id}`}>

@@ -17,6 +17,10 @@ const listingSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    publicationDate: {
+      type: String,
+      required: true,
+    },
     editionContent: {
       type: Array,
       required: true,

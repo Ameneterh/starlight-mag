@@ -1,3 +1,4 @@
+import dateFormat from "dateformat";
 import { MdOutlineMail } from "react-icons/md";
 import { FaReadme, FaShare } from "react-icons/fa6";
 import React, { useEffect, useState } from "react";
@@ -79,7 +80,7 @@ export default function Listing() {
                   </Link>
                 </h1>
                 <p className="text-slate-500 text-sm flex items-center justify-between">
-                  {listing.edition} <span>{listing.createdAt}</span>
+                  {listing.edition} <span>{listing.publicationDate}</span>
                 </p>
                 {/* link for copying url to share */}
                 <div

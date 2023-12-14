@@ -18,7 +18,7 @@ export default function ListedArticle({ listing }) {
               <TbCategoryPlus /> {listing.title}
             </p>
             <p className="flex items-center justify-between w-full text-[12px] text-slate-500">
-              {listing.edition} <span>{listing.createdAt}</span>
+              {listing.edition} <span>{listing.publicationDate}</span>
             </p>
           </div>
           <p className="line-clamp-3 mt-2 text-sm text-gray-700 text-justify">

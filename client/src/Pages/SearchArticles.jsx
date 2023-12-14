@@ -149,8 +149,8 @@ export default function SearchArticles() {
             >
               <option value="authorName_asc">Author [A - Z]</option>
               <option value="authorName_desc">Author [Z - A]</option>
-              <option value="createdAt_desc">Newest</option>
-              <option value="createdAt_asc">Oldest</option>
+              <option value="publicationDate_asc">Newest</option>
+              <option value="publicationDate_desc">Oldest</option>
             </select>
           </div>
 

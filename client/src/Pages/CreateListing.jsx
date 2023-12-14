@@ -4,7 +4,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { ThreeDots, Vortex } from "react-loader-spinner";
 
 import { useSelector } from "react-redux";
@@ -19,12 +19,13 @@ export default function CreateListing() {
   const [pdfFiles, setPdfFiles] = useState([]);
   const [formData, setFormData] = useState({
     imageUrls: [],
-
     title: "",
     edition: "",
+    publicationDate: "",
     editionContent: [],
     description: "",
   });
+  const dateInputRef = useRef(null);
   const [imageUploadError, setImageUploadError] = useState(false);
   const [pdfUploadError, setPdfUploadError] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -158,7 +159,8 @@ export default function CreateListing() {
     if (
       e.target.type === "number" ||
       e.target.type === "text" ||
-      e.target.type === "textarea"
+      e.target.type === "textarea" ||
+      e.target.type === "date"
     ) {
       setFormData({
         ...formData,
@@ -215,16 +217,31 @@ export default function CreateListing() {
             placeholder="Edition Number"
             className="border p-3 rounded-lg"
             id="edition"
-            maxLength="10"
+            maxLength="12"
             minLength="10"
             required
             onChange={handleChange}
             value={formData.edition}
           />
+          {/* <DatePicker
+            value={startDate}
+            onChange={(date) => setStartDate(date)}
+            className="border p-3 rounded-lg"
+          /> */}
+          <input
+            type="date"
+            placeholder="Publication Date"
+            className="border p-3 rounded-lg"
+            id="publicationDate"
+            required
+            onChange={handleChange}
+            ref={dateInputRef}
+            // value={formData.edition}
+          />
           <textarea
             type="text"
             placeholder="Short excerpt"
-            className="border p-3 rounded-lg h-56"
+            className="border p-3 rounded-lg h-40"
             id="description"
             maxLength="250"
             minLength="10"
