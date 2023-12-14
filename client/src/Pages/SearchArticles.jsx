@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ListedArticle from "../Components/ListedArticle";
+import { ThreeDots, Vortex } from "react-loader-spinner";
 
 export default function SearchArticles() {
   const navigate = useNavigate();
-  const [user, setUser] = useState([]);
 
   const [sidebardata, setSidebardata] = useState({
     searchTerm: "",
@@ -13,19 +13,17 @@ export default function SearchArticles() {
     order: "desc",
   });
 
+  const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
   const [showMore, setShowMore] = useState(false);
 
-  console.log(listings);
-
-  const fetchUsers = () => {
-    return fetch("/api/user/users")
-      .then((res) => res.json())
-      .then((data) => setUser(data));
-  };
-
   useEffect(() => {
+    const fetchUsers = () => {
+      return fetch("/api/user/users")
+        .then((res) => res.json())
+        .then((data) => setUser(data));
+    };
     fetchUsers();
   }, []);
 
@@ -165,18 +163,28 @@ export default function SearchArticles() {
         <h1 className="text-2xl font-semibold border-b p-3 text-slate-700 mt-5">
           Articles Search Results:
         </h1>
-        <div className="p-7 flex flex-wrap gap-8">
-          {/* {!loading && listings.length === 0 && (
-            <p className="text-xl text-slate-700">No Listing Found!</p>
+        <div className="p-4 flex flex-wrap gap-8">
+          {!loading && listings.length === 0 && (
+            <p className="text-xl text-red-700">No Listing Found!</p>
           )}
           {loading && (
-            <p className="text-xl text-slate-700 text-center w-full">
-              Loading ...
-            </p>
+            <span className="flex justify-center w-full">
+              <Vortex
+                visible={true}
+                height="250"
+                width="250"
+                ariaLabel="vortex-loading"
+                wrapperStyle={{}}
+                wrapperClass="vortex-wrapper"
+                colors={["red", "green", "blue", "yellow", "orange", "purple"]}
+              />
+            </span>
           )}
           {!loading &&
             listings &&
-            listings.map((listing) => <ListedArticle listing={listing} />)}
+            listings.map((listing) => (
+              <ListedArticle key={listing._id} listing={listing} />
+            ))}
           {showMore && (
             <button
               className="text-green-700 hover:underline -7 w-full text-center"
@@ -186,8 +194,7 @@ export default function SearchArticles() {
             >
               Show More
             </button>
-          )} */}
-          <ListedArticle />
+          )}
         </div>
       </div>
     </div>

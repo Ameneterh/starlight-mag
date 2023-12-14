@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import ListedArticle from "../Components/ListedArticle";
 
 export default function Home() {
+  const [listing, setListing] = useState([]);
+
+  console.log(listing);
+
+  useEffect(() => {
+    const fetchListing = async () => {
+      return await fetch("/api/listing/get")
+        .then((res) => res.json())
+        .then((data) => setListing(data));
+    };
+    fetchListing();
+  }, []);
+
   return (
     <div className="flex flex-col w-full ">
       <div className="w-full bg-[url('/reading-book.gif')] bg-no-repeat bg-cover">
@@ -21,21 +35,10 @@ export default function Home() {
         <h2 className="mt-4 md:mt-0 text-2xl font-semibold text-white">
           Most Recent Post
         </h2>
-        <div className="flex gap-8 w-full">
-          <div className="h-[500px] w-[70%] bg-slate-400 hidden md:flex">
-            Magazine Display
-          </div>
-          <div className="flex flex-col gap-4 h-[200px] w-full md:w-[30%] bg-white p-4 rounded-lg border-[3px] border-slate-600 shadow-lg">
-            <p>
-              Title: <span className="font-bold"></span>
-            </p>
-            <p>
-              Edition: <span className="font-bold"></span>
-            </p>
-            <p>
-              Date Published: <span className="font-bold"></span>
-            </p>
-          </div>
+        <div className="flex flex-col md:flex-row gap-8 w-full justify-between">
+          {listing &&
+            listing.length > 0 &&
+            listing.map((article) => <ListedArticle listing={article} />)}
         </div>
       </div>
     </div>
