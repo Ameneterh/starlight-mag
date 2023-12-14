@@ -1,12 +1,14 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaBars, FaSearch, FaTimes } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
   const [nav, setNav] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const links = [
     {
@@ -25,6 +27,22 @@ export default function Header() {
       url: "/about",
     },
   ];
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("searchTerm", searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get("searchTerm");
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location.search]);
 
   return (
     <div className="w-full bg-slate-400 flex flex-col shadow-lg md:sticky top-0 left-0 z-30">
@@ -47,11 +65,16 @@ export default function Header() {
 
         {/* header search form */}
         <div className="">
-          <form className="flex items-center justify-betweenw-[300px] md:w-[600px] h-10 rounded-full py-1 px-3 bg-white border-2 border-slate-200">
+          <form
+            onSubmit={handleSubmit}
+            className="flex items-center justify-betweenw-[300px] md:w-[600px] h-10 rounded-full py-1 px-3 bg-white border-2 border-slate-200"
+          >
             <input
               type="text"
               placeholder="search for article"
               className="w-full h-full focus:outline-none bg-transparent"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
             <button>
               <FaSearch size={20} className="text-slate-300" />
