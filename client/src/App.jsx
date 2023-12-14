@@ -14,6 +14,7 @@ import CreateListing from "./Pages/CreateListing";
 import UpdateListing from "./Pages/UpdateListing";
 import ScrollToTop from "./ScrollToTop";
 import Listing from "./Pages/Listing";
+import Articles from "./Pages/Articles";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -29,6 +30,7 @@ function App() {
         <Route path="/sl-admin" element={<SLAdmin />} />
         <Route path="/author-bio" element={<AuthorBio />} />
         <Route path="/search" element={<SearchArticles />} />
+        <Route path="/articles" element={<Articles />} />
         <Route element={<PrivateRoute />}>
           <Route path="/sign-up" element={<Signup />} />
           <Route path="/profile" element={<Profile />} />

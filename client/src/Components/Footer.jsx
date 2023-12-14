@@ -14,7 +14,7 @@ export default function Footer() {
             Daniel 12:3{" "}
             <span className="text-sm text-slate-700">Amplified</span>
           </h2>
-          <p className="text-[16px] text-slate-800">
+          <p className="text-[14px] text-slate-800">
             Men and women who have lived wisely and well will shine brilliantly,
             like the cloudless, star-strewn night skies. And those who put
             others on the right path to life will glow like stars forever
@@ -22,15 +22,15 @@ export default function Footer() {
         </div>
         <div className="w-full md:w-1/3 flex flex-col items-center gap-2 px-2 py-4">
           <p className="font-semibold text-lg">Reach out to us:</p>
-          <p className="flex gap-1 items-center">
+          <p className="flex gap-1 items-center text-sm">
             <FaLocationDot />
             25 Liberty Street, Karatudu, Kaduna, Kaduna State
           </p>
-          <p className="flex gap-1 items-center">
+          <p className="flex gap-1 items-center text-sm">
             <MdMarkEmailRead />
             contact@ssastarlight.com.ng
           </p>
-          <p className="flex gap-1 items-center">
+          <p className="flex gap-1 items-center text-sm">
             <FaWhatsapp /> <MdCall />
             <MdTextsms />
             +2348154230654
@@ -41,17 +41,17 @@ export default function Footer() {
           <div className="hidden md:flex flex-col">
             <ul className="flex flex-col gap-1">
               <li className="p-1 border-2 rounded-md bg-slate-400 hover:scale-110 transition-all">
-                <Link to="/" className="flex gap-1">
+                <Link to="/" className="flex items-center gap-1 text-sm">
                   <FaFacebook className="text-white text-2xl" /> Facebook
                 </Link>
               </li>
               <li className="p-1 border-2 rounded-md bg-slate-400 hover:scale-110 transition-all">
-                <Link to="/" className="flex gap-1">
+                <Link to="/" className="flex items-center gap-1 text-sm">
                   <FaYoutube className="text-white text-2xl" /> YouTube
                 </Link>
               </li>
               <li className="p-1 border-2 rounded-md bg-slate-400 hover:scale-110 transition-all">
-                <Link to="/" className="flex gap-1">
+                <Link to="/" className="flex items-center gap-1 text-sm">
                   <FaTwitter className="text-white text-2xl" /> Twitter (X)
                 </Link>
               </li>
