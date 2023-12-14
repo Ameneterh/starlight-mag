@@ -5,6 +5,7 @@ const listingSchema = new mongoose.Schema(
     imageUrls: {
       type: Array,
       required: true,
+      unique: true,
     },
     title: {
       type: String,
@@ -13,6 +14,11 @@ const listingSchema = new mongoose.Schema(
     },
     edition: {
       type: String,
+      required: true,
+      unique: true,
+    },
+    editionContent: {
+      type: Array,
       required: true,
       unique: true,
     },

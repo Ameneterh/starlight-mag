@@ -203,7 +203,7 @@ export default function Profile() {
               type="text"
               placeholder="full name"
               className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
-              id="fullname"
+              id="authorName"
               defaultValue={currentUser.authorName}
               onChange={handleChange}
             />

@@ -190,6 +190,7 @@ export default function CreateListing() {
           </p>
           <div className="flex gap-4">
             <input
+              disabled
               onChange={(e) => setFiles(e.target.files)}
               className="p-3 border border-gray-300 rounded w-full"
               type="file"
@@ -200,7 +201,8 @@ export default function CreateListing() {
             <button
               onClick={handleImageSubmit}
               type="button"
-              disabled={uploading}
+              disabled
+              // disabled={uploading}
               className="p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80"
             >
               {uploading ? (
@@ -240,6 +242,7 @@ export default function CreateListing() {
                   className="w-14 h-20 object-cotain rounded-lg"
                 />
                 <button
+                  disabled
                   type="button"
                   onClick={() => handleRemoveImage(index)}
                   className="p-3 text-red-700 rounded-lg uppercase hover:opacity-75"

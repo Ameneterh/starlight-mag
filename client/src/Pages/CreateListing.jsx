@@ -14,15 +14,21 @@ import { app } from "../firebase";
 export default function CreateListing() {
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const [filePerc, setFilePerc] = useState(0);
   const [files, setFiles] = useState([]);
+  const [pdfFiles, setPdfFiles] = useState([]);
   const [formData, setFormData] = useState({
     imageUrls: [],
+
     title: "",
     edition: "",
+    editionContent: [],
     description: "",
   });
   const [imageUploadError, setImageUploadError] = useState(false);
+  const [pdfUploadError, setPdfUploadError] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [pdfUploading, setPdfUploading] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -55,6 +61,36 @@ export default function CreateListing() {
     }
   };
 
+  const handleFileSubmit = (e) => {
+    if (
+      pdfFiles.length > 0 &&
+      pdfFiles.length + formData.editionContent.length < 2
+    ) {
+      setPdfUploading(true);
+      setPdfUploadError(false);
+      const promises = [];
+      for (let i = 0; i < pdfFiles.length; i++) {
+        promises.push(storeFile(pdfFiles[i]));
+      }
+      Promise.all(promises)
+        .then((eds) => {
+          setFormData({
+            ...formData,
+            editionContent: formData.editionContent.concat(eds),
+          });
+          setPdfUploadError(false);
+          setPdfUploading(false);
+        })
+        .catch((err) => {
+          setPdfUploadError("File upload failed (2 mb max)");
+          setPdfUploading(false);
+        });
+    } else {
+      setPdfUploadError("You can only upload 1 File per listing");
+      setPdfUploading(false);
+    }
+  };
+
   const storeImage = async (file) => {
     return new Promise((resolve, reject) => {
       const storage = getStorage(app);
@@ -79,6 +115,37 @@ export default function CreateListing() {
       );
     });
   };
+
+  const storeFile = async (file) => {
+    return new Promise((resolve, reject) => {
+      const storage = getStorage(app);
+      const fileName = file.name;
+      const storageRef = ref(storage, fileName);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setFilePerc(Math.round(progress));
+          // console.log(`Upload is ${progress}% done`);
+        },
+        (error) => {
+          reject(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            resolve(downloadURL);
+          });
+        }
+      );
+    });
+  };
+
+  // from firebase
+  //  &&
+  // request.resource.contentType.matches('image/.*');
+  // }
 
   const handleRemoveImage = (index) => {
     setFormData({
@@ -128,7 +195,7 @@ export default function CreateListing() {
   };
 
   return (
-    <main className="p-3 max-w-4xl mx-auto h-screen">
+    <main className="p-3 max-w-4xl mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">
         Create an Article Listing
       </h1>
@@ -167,6 +234,59 @@ export default function CreateListing() {
           />
         </div>
         <div className="flex flex-col flex-1 gap-4">
+          {/* file upload section */}
+          <p className="font-semibold">Add Edition PDF File:</p>
+          <div className="flex gap-4">
+            <input
+              onChange={(e) => setPdfFiles(e.target.files)}
+              className="p-3 border border-gray-300 rounded w-full"
+              type="file"
+              id="editionContent"
+              accept="pdf/*"
+            />
+            <button
+              onClick={handleFileSubmit}
+              type="button"
+              disabled={pdfUploading}
+              className="p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80"
+            >
+              {pdfUploading ? (
+                <Vortex
+                  visible={true}
+                  height="50"
+                  width="50"
+                  ariaLabel="vortex-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="vortex-wrapper"
+                  colors={[
+                    "red",
+                    "green",
+                    "blue",
+                    "yellow",
+                    "orange",
+                    "purple",
+                  ]}
+                />
+              ) : (
+                "Upload File"
+              )}
+            </button>
+          </div>
+          <p className="text-sm">
+            {pdfUploadError ? (
+              <span className="text-red-700">{pdfUploadError}</span>
+            ) : filePerc > 0 && filePerc < 100 ? (
+              <span className="text-slate-700">{`Uploading ${filePerc}%`}</span>
+            ) : filePerc === 100 ? (
+              <span className="text-green-700">
+                Image Successfully Uploaded!
+              </span>
+            ) : (
+              ""
+            )}
+          </p>
+
+          {/* image upload section */}
           <p className="font-semibold">
             Add Edition Cover Image:{" "}
             <span className="font-normal text-gray-600 ml-2">(max 2mb)</span>
