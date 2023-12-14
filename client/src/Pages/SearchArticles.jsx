@@ -17,14 +17,16 @@ export default function SearchArticles() {
   const [listings, setListings] = useState([]);
   const [showMore, setShowMore] = useState(false);
 
-  const fetchData = () => {
+  console.log(listings);
+
+  const fetchUsers = () => {
     return fetch("/api/user/users")
       .then((res) => res.json())
       .then((data) => setUser(data));
   };
 
   useEffect(() => {
-    fetchData();
+    fetchUsers();
   }, []);
 
   useEffect(() => {
@@ -42,6 +44,7 @@ export default function SearchArticles() {
         order: orderFromUrl || "desc",
       });
     }
+
     const fetchListings = async () => {
       setShowMore(false);
       setLoading(true);
@@ -125,14 +128,14 @@ export default function SearchArticles() {
             <label className="font-semibold">Search by Author:</label>
             <select
               onChange={handleChange}
-              defaultValue={"created_at_desc"}
-              id="sort_order"
+              defaultValue={"all"}
+              id="authorName"
               className="border rounded-lg p-3"
             >
               {user &&
                 user.length > 0 &&
                 user.map((userObj, index) => (
-                  <option key={index} value={user._id}>
+                  <option key={index} value={userObj.authorName}>
                     {userObj.authorName}
                   </option>
                 ))}
@@ -146,8 +149,8 @@ export default function SearchArticles() {
               id="sort_order"
               className="border rounded-lg p-3"
             >
-              <option value="regularPrice_asc">Author [A - Z]</option>
-              <option value="regularPrice_desc">Author [Z - A]</option>
+              <option value="authorName_asc">Author [A - Z]</option>
+              <option value="authorName_desc">Author [Z - A]</option>
               <option value="createdAt_desc">Newest</option>
               <option value="createdAt_asc">Oldest</option>
             </select>
