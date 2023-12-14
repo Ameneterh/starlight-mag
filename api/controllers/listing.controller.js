@@ -62,3 +62,12 @@ export const getListing = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getListings = async (req, res, next) => {
+  try {
+    const limit = parseInt(req.query.limit) || 9;
+    const startIndex = parseInt(req.query.startIndex) || 0;
+  } catch (error) {
+    next(error);
+  }
+};

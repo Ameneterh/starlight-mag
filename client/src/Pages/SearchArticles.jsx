@@ -4,6 +4,8 @@ import ListedArticle from "../Components/ListedArticle";
 
 export default function SearchArticles() {
   const navigate = useNavigate();
+  const [user, setUser] = useState([]);
+
   const [sidebardata, setSidebardata] = useState({
     searchTerm: "",
     authorName: "",
@@ -14,6 +16,16 @@ export default function SearchArticles() {
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
   const [showMore, setShowMore] = useState(false);
+
+  const fetchData = () => {
+    return fetch("/api/user/users")
+      .then((res) => res.json())
+      .then((data) => setUser(data));
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -117,10 +129,13 @@ export default function SearchArticles() {
               id="sort_order"
               className="border rounded-lg p-3"
             >
-              <option value="regularPrice_asc">Author [A - Z]</option>
-              <option value="regularPrice_desc">Author [Z - A]</option>
-              <option value="createdAt_desc">Newest</option>
-              <option value="createdAt_asc">Oldest</option>
+              {user &&
+                user.length > 0 &&
+                user.map((userObj, index) => (
+                  <option key={index} value={user._id}>
+                    {userObj.authorName}
+                  </option>
+                ))}
             </select>
           </div>
           <div className="flex items-center gap-2">

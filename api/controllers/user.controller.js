@@ -63,3 +63,12 @@ export const getUserListings = async (req, res, next) => {
     return next(errorHandler(401, "You can only view your listings!"));
   }
 };
+
+export const getUsers = async (req, res, next) => {
+  try {
+    const allUsers = await User.find({});
+    res.status(200).json(allUsers);
+  } catch (error) {
+    next(error);
+  }
+};
