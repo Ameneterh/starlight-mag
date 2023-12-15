@@ -4,8 +4,6 @@ import ListedArticle from "../Components/ListedArticle";
 export default function Home() {
   const [listing, setListing] = useState([]);
 
-  console.log(listing);
-
   useEffect(() => {
     const fetchListing = async () => {
       return await fetch("/api/listing/get?limit=4")
