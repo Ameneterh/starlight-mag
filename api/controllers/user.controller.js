@@ -73,7 +73,7 @@ export const getUsers = async (req, res, next) => {
   }
 };
 
-export const getUser = async (req, res, next) => {
+export const getAuthor = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {

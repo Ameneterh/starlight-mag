@@ -114,7 +114,7 @@ export default function Listing() {
                 </div>
                 <div className="flex flex-col">
                   <Link
-                    to={`/api/user/author-profile/`}
+                    to={`/get-author/${currentUser._id}`}
                     className="text-[15px] text-slate-700 font-semibold hover:underline hover:opacity-90"
                   >
                     {currentUser.authorName}

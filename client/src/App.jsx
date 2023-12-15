@@ -28,7 +28,7 @@ function App() {
         <Route path="/listing/:listingId" element={<Listing />} />
         <Route path="/about" element={<About />} />
         <Route path="/sl-admin" element={<SLAdmin />} />
-        <Route path="/author-bio" element={<AuthorBio />} />
+        <Route path="/get-author/:authorId" element={<AuthorBio />} />
         <Route path="/search" element={<SearchArticles />} />
         <Route path="/articles" element={<Articles />} />
         <Route element={<PrivateRoute />}>
