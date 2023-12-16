@@ -8,7 +8,7 @@ export default function SearchArticles() {
 
   const [sidebardata, setSidebardata] = useState({
     searchTerm: "",
-    authorName: "",
+    userRef: "",
     sort: "created_at",
     order: "desc",
   });
@@ -18,9 +18,12 @@ export default function SearchArticles() {
   const [listings, setListings] = useState([]);
   const [showMore, setShowMore] = useState(false);
 
+  // console.log(listings);
+  // console.log(user[0]._id);
+
   useEffect(() => {
-    const fetchUsers = () => {
-      return fetch("/api/user/users")
+    const fetchUsers = async () => {
+      return await fetch("/api/user/users")
         .then((res) => res.json())
         .then((data) => setUser(data));
     };
@@ -30,14 +33,14 @@ export default function SearchArticles() {
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const searchTermFromUrl = urlParams.get("searchTerm");
-    const authorNameFromUrl = urlParams.get("authorName");
+    const userRefFromUrl = urlParams.get("userRef");
     const sortFromUrl = urlParams.get("sort");
     const orderFromUrl = urlParams.get("order");
 
-    if (searchTermFromUrl || authorNameFromUrl || sortFromUrl || orderFromUrl) {
+    if (searchTermFromUrl || userRefFromUrl || sortFromUrl || orderFromUrl) {
       setSidebardata({
         searchTerm: searchTermFromUrl || "",
-        authorName: authorNameFromUrl || "",
+        userRef: userRefFromUrl || "all",
         sort: sortFromUrl || "created_at",
         order: orderFromUrl || "desc",
       });
@@ -66,8 +69,8 @@ export default function SearchArticles() {
       setSidebardata({ ...sidebardata, searchTerm: e.target.value });
     }
 
-    if (e.target.id === "authorName") {
-      setSidebardata({ ...sidebardata, authorName: e.target.value });
+    if (e.target.id === "userRef") {
+      setSidebardata({ ...sidebardata, userRef: e.target.value });
     }
 
     if (e.target.id === "sort_order") {
@@ -82,6 +85,7 @@ export default function SearchArticles() {
     e.preventDefault();
     const urlParams = new URLSearchParams();
     urlParams.set("searchTerm", sidebardata.searchTerm);
+    urlParams.set("userRef", sidebardata.userRef);
     urlParams.set("sort", sidebardata.sort);
     urlParams.set("order", sidebardata.order);
 
@@ -122,23 +126,26 @@ export default function SearchArticles() {
             />
           </div>
 
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             <label className="font-semibold">Search by Author:</label>
             <select
               onChange={handleChange}
-              defaultValue={"all"}
-              id="authorName"
+              defaultValue="all"
+              id="userRef"
               className="border rounded-lg p-3"
             >
+              <option value="" disabled selected>
+                Select Author
+              </option>
               {user &&
                 user.length > 0 &&
-                user.map((userObj, index) => (
-                  <option key={index} value={userObj.authorName}>
+                user.map((userObj) => (
+                  <option key={userObj._id} value={userObj._id}>
                     {userObj.authorName}
                   </option>
                 ))}
             </select>
-          </div>
+          </div> */}
           <div className="flex items-center gap-2">
             <label className="font-semibold">Sort by:</label>
             <select
@@ -147,10 +154,10 @@ export default function SearchArticles() {
               id="sort_order"
               className="border rounded-lg p-3"
             >
-              <option value="authorName_asc">Author [A - Z]</option>
-              <option value="authorName_desc">Author [Z - A]</option>
-              <option value="publicationDate_asc">Newest</option>
-              <option value="publicationDate_desc">Oldest</option>
+              {/* <option value="authorName_asc">Author [A - Z]</option> */}
+              {/* <option value="authorName_desc">Author [Z - A]</option> */}
+              <option value="publicationDate_desc">New to Old</option>
+              <option value="publicationDate_asc">Old to New</option>
             </select>
           </div>
 

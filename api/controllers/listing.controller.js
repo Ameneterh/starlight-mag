@@ -69,11 +69,13 @@ export const getListings = async (req, res, next) => {
     const startIndex = parseInt(req.query.startIndex) || 0;
 
     const searchTerm = req.query.searchTerm || "";
+    // const userRef = req.query.userRef || "all";
     const sort = req.query.sort || "publicationDate";
     const order = req.query.order || "desc";
 
     const listings = await Listing.find({
       title: { $regex: searchTerm, $options: "i" },
+      // userRef: userRef,
     })
       .sort({ [sort]: order })
       .limit(limit)
