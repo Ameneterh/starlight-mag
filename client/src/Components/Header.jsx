@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaBars, FaSearch, FaTimes } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { FaBars, FaSearch, FaTimes, FaSignOutAlt } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
+
+import {
+  signOutUserFailure,
+  signOutUserStart,
+  signOutUserSuccess,
+} from "../redux/user/userSlice";
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [nav, setNav] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -43,6 +50,21 @@ export default function Header() {
       setSearchTerm(searchTermFromUrl);
     }
   }, [location.search]);
+
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch("/api/auth/signout");
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(signOutUserFailure(data.message));
+        return;
+      }
+      dispatch(signOutUserSuccess(data));
+    } catch (error) {
+      dispatch(signOutUserFailure(error.message));
+    }
+  };
 
   return (
     <div className="w-full bg-slate-400 flex flex-col shadow-lg md:sticky top-0 left-0 z-30">
@@ -94,17 +116,27 @@ export default function Header() {
             </Link>
           ))}
 
-          <Link to="/profile">
+          <div className="">
             {currentUser ? (
-              <img
-                src={currentUser.avatar}
-                alt="profile"
-                className="rounded-full h-8 w-8 object-cover"
-              />
+              <div className="h-16 w-16 flex flex-col gap-2 items-center border-l p-1 rounded-full">
+                <Link to="/profile" onClick={() => setNav(!nav)}>
+                  <img
+                    src={currentUser.avatar}
+                    alt="profile"
+                    className="rounded-full h-10 w-10 object-cover"
+                  />
+                </Link>
+                <span
+                  onClick={handleSignOut}
+                  className="text-red-600 cursor-pointer hover:opacity-70 text-[10px]"
+                >
+                  <FaSignOutAlt className="text-[15px]" />
+                </span>
+              </div>
             ) : (
               <></>
             )}
-          </Link>
+          </div>
         </div>
 
         {/* show on mobile */}
@@ -122,6 +154,27 @@ export default function Header() {
         {/* drop down navigation */}
         {nav && (
           <div className="flex flex-col justify-center items-center w-full h-[50%] absolute top-10 right-0 bg-gray-950 opacity-95 gap-8 text-white font-bold z-10">
+            <div className="">
+              {currentUser ? (
+                <div className="h-16 w-16 flex flex-col gap-2 items-center border-l p-1 rounded-full">
+                  <Link to="/profile" onClick={() => setNav(!nav)}>
+                    <img
+                      src={currentUser.avatar}
+                      alt="profile"
+                      className="rounded-full h-14 w-14 object-cover"
+                    />
+                  </Link>
+                  <span
+                    onClick={handleSignOut}
+                    className="text-red-600 cursor-pointer hover:opacity-70 text-[10px]"
+                  >
+                    <FaSignOutAlt className="text-[15px]" />
+                  </span>
+                </div>
+              ) : (
+                <></>
+              )}
+            </div>
             <div className="flex flex-col items-center justify-start gap-12 text-lg uppercase">
               {links.map((eachLink) => (
                 <Link

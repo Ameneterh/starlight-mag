@@ -35,11 +35,16 @@ export default function AuthorBio() {
           className="rounded-full h-[250px] w-[250px] self-center md:self-start object-cover shadow-lg border-2"
         />
 
-        <div className="h-full flex-1 flex flex-col gap-4">
+        <div className="h-full flex-1 flex flex-col gap-4 text-justify">
           <p className="text-2xl text-slate-700 font-semibold border-b-[1px] pb-3">
             {author.authorName}
           </p>
-          <p className="text-[14px] text-slate-700">{author.aboutAuthor}</p>
+          <p
+            className="text-[14px] text-slate-700 whitespace-pre-line"
+            dangerouslySetInnerHTML={{ __html: author.aboutAuthor }}
+          />
+          {/* {author.aboutAuthor} */}
+          {/* </p> */}
           <div className="flex w-full flex-col border-t-[1px] pt-3">
             <p className="text-red-400 text-[14px]">Contact the author:</p>
             <div className="flex flex-wrap items-center w-full gap-4">

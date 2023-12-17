@@ -43,67 +43,132 @@ export default function SignUp() {
   return (
     <div className="p-3 max-w-lg mx-auto md:mb-10">
       <h1 className="text-3xl text-center font-semibold my-7">Sign Up</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4 font-light">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-3 font-light text-sm"
+      >
+        <p className="text-black text-[12px]">
+          <span className="text-red-600">*</span> show required input field
+        </p>
+        <label
+          for="authorName"
+          className="mb-[-20px] text-slate-700 text-[12px] z-10 px-2 bg-white"
+        >
+          Full name: <span className="text-red-600">*</span>
+        </label>
         <input
           type="text"
-          placeholder="full name"
-          className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
+          required
+          className="border-b border-black p-3 focus:outline-none focus:border-red-400"
           id="authorName"
           onChange={handleChange}
         />
+        <label
+          for="email"
+          className="mb-[-20px] text-slate-700 text-[12px] z-10 px-2 bg-white"
+        >
+          Email: <span className="text-red-600">*</span>
+        </label>
         <input
           type="email"
-          placeholder="email"
-          className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
+          required
+          className="border-b border-black p-3 focus:outline-none focus:border-red-400"
           id="email"
           onChange={handleChange}
         />
+
+        <label
+          for="phoneNumber"
+          className="mb-[-20px] text-slate-700 text-[12px] z-10 px-2 bg-white"
+        >
+          Phone Number: <span className="text-red-600">*</span>
+        </label>
         <input
           type="text"
-          placeholder="phone number"
-          className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
+          required
+          className="border-b border-black p-3 focus:outline-none focus:border-red-400"
           id="phoneNumber"
           onChange={handleChange}
         />
+
+        <label
+          for="socialMedia"
+          className="mb-[-20px] text-slate-700 text-[12px] z-10 px-2 bg-white"
+        >
+          Social Media Accounts:
+        </label>
         <input
           type="text"
-          placeholder="social media accounts"
-          className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
+          className="border-b border-black p-3 focus:outline-none focus:border-red-400"
           id="socialMedia"
           onChange={handleChange}
         />
+
+        <label
+          for="avatar"
+          className="mb-[-20px] text-slate-700 text-[12px] z-10 px-2 bg-white"
+        >
+          Author Avatar: <span className="text-red-600">*</span>
+        </label>
         <input
           type="file"
-          placeholder="avatar"
-          className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
+          className="border-b border-black p-3 focus:outline-none focus:border-red-400 bg-white"
+          accept="image/*"
           id="avatar"
           onChange={handleChange}
         />
+
+        <label
+          for="role"
+          className="mb-[-20px] text-slate-700 text-[12px] z-10 px-2 bg-white"
+        >
+          Role:
+        </label>
         <input
           type="text"
-          placeholder="role"
-          className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
+          className="border-b border-black p-3 focus:outline-none focus:border-red-400"
           id="role"
           onChange={handleChange}
         />
+
+        <label
+          for="aboutAuthor"
+          className="mb-[-20px] text-slate-700 text-[12px] z-10 px-2 bg-white"
+        >
+          About Author: <span className="text-red-600">*</span>
+        </label>
         <textarea
           type="text"
-          placeholder="info about author"
-          className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
+          required
+          className="h-48 border-b border-black p-3 focus:outline-none focus:border-red-400"
           id="aboutAuthor"
           onChange={handleChange}
         />
+
+        <label
+          for="username"
+          className="mb-[-20px] text-slate-700 text-[12px] z-10 px-2 bg-white"
+        >
+          Username: <span className="text-red-600">*</span>
+        </label>
         <input
           type="text"
-          placeholder="username"
-          className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
+          required
+          className="border-b border-black p-3 focus:outline-none focus:border-red-400"
           id="username"
           onChange={handleChange}
         />
+
+        <label
+          for="password"
+          className="mb-[-20px] text-slate-700 text-[12px] z-10 px-2 bg-white"
+        >
+          Password: <span className="text-red-600">*</span>
+        </label>
         <input
           type="password"
-          placeholder="password"
-          className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
+          required
+          className="border-b border-black p-3 focus:outline-none focus:border-red-400"
           id="password"
           onChange={handleChange}
         />

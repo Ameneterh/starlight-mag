@@ -14,13 +14,10 @@ import {
   deleteUserFailure,
   deleteUserStart,
   deleteUserSuccess,
-  signOutUserStart,
-  signOutUserFailure,
-  signOutUserSuccess,
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
-import { current } from "@reduxjs/toolkit";
 import { Link } from "react-router-dom";
+import TextEditor from "../Components/TextEditor";
 
 export default function Profile() {
   const fileRef = useRef(null);
@@ -34,6 +31,8 @@ export default function Profile() {
   const [showListingsError, setShowListingsError] = useState(false);
   const [userListings, setUserListings] = useState([]);
   const dispatch = useDispatch();
+
+  console.log(formData);
 
   useEffect(() => {
     if (file) {
@@ -109,21 +108,6 @@ export default function Profile() {
     }
   };
 
-  const handleSignOut = async () => {
-    try {
-      dispatch(signOutUserStart());
-      const res = await fetch("/api/auth/signout");
-      const data = await res.json();
-      if (data.success === false) {
-        dispatch(signOutUserFailure(data.message));
-        return;
-      }
-      dispatch(signOutUserSuccess(data));
-    } catch (error) {
-      dispatch(signOutUserFailure(error.message));
-    }
-  };
-
   const handleShowListings = async () => {
     try {
       setShowListingsError(false);
@@ -161,25 +145,19 @@ export default function Profile() {
     <main className="p-3 max-w-7xl mx-auto">
       <div className="w-full flex flex-col sm:flex-row gap-4">
         {/* p-3 max-w-lg mx-auto */}
-        <div className="flex flex-col flex-1 p-3 max-w-lg border rounded-lg">
+        <div className="flex flex-col flex-1 p-3 max-w-lg md:border-r rounded-lg border-r-gray-400">
           {/* sign out and show listing md screens */}
-          <div className="w-full hidden md:flex justify-between bg-slate-200 p-2 rounded-sm">
-            <span
-              onClick={handleSignOut}
-              className="text-red-700 cursor-pointer hover:font-semibold"
-            >
-              Sign Out
-            </span>
+          <div className="w-full hidden md:flex justify-between bg-green-50 p-2 rounded-lg">
             <button
               onClick={handleShowListings}
-              className="text-green-700 text-right hover:font-semibold"
+              className="w-full text-green-900 text-right hover:font-semibold"
             >
               Show My Listings
             </button>
           </div>
 
           <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
             <input
               onChange={(e) => setFile(e.target.files[0])}
               type="file"
@@ -208,68 +186,105 @@ export default function Profile() {
                 ""
               )}
             </p>
-
+            <label
+              for="authorName"
+              className="mb-[-20px] text-blue-700 text-[12px] z-10 px-2 bg-white"
+            >
+              Full name:
+            </label>
             <input
               type="text"
               placeholder="full name"
-              className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
+              className="border-b border-black p-3 focus:outline-none focus:border-red-400"
               id="authorName"
               defaultValue={currentUser.authorName}
               onChange={handleChange}
             />
+            <label
+              for="email"
+              className="mb-[-20px] text-blue-700 text-[12px] z-10 px-2 bg-white"
+            >
+              Email:
+            </label>
             <input
               type="email"
               placeholder="email"
-              className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
+              className="border-b border-black p-3 focus:outline-none focus:border-red-400"
               id="email"
               defaultValue={currentUser.email}
               onChange={handleChange}
             />
+            <label
+              for="phonenumber"
+              className="mb-[-20px] text-blue-700 text-[12px] z-10 px-2 bg-white"
+            >
+              Phone Number:
+            </label>
             <input
               type="text"
               placeholder="phone number"
-              className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
+              className="border-b border-black p-3 focus:outline-none focus:border-red-400"
               id="phonenumber"
               defaultValue={currentUser.phoneNumber}
               onChange={handleChange}
             />
+            <label
+              for="socialMedia"
+              className="mb-[-20px] text-blue-700 text-[12px] z-10 px-2 bg-white"
+            >
+              Social Media Accounts:
+            </label>
             <input
               type="text"
               placeholder="social media accounts"
-              className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
+              className="border-b border-black p-3 focus:outline-none focus:border-red-400"
               id="socialMedia"
               defaultValue={currentUser.socialMedia}
               onChange={handleChange}
             />
-            {/* <input
-              disabled
-              type="text"
-              placeholder="role"
-              className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
-              id="role"
-              defaultValue={currentUser.role}
+            <label
+              for="aboutAuthor"
+              className="mb-[-20px] text-blue-700 text-[12px] z-10 p-2 bg-white"
+            >
+              About Author:
+            </label>
+            {/* <TextEditor
+              defaultValue={currentUser.aboutAuthor}
+              value={currentUser.aboutAuthor}
               onChange={handleChange}
             /> */}
             <textarea
               type="text"
               placeholder="info about author"
-              className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
+              className="h-48 border-b border-black p-3 focus:outline-none focus:border-red-400"
               id="aboutAuthor"
               defaultValue={currentUser.aboutAuthor}
               onChange={handleChange}
             />
+            <label
+              for="username"
+              className="mb-[-20px] text-blue-700 text-[12px] z-10 px-2 bg-white"
+            >
+              Username:
+            </label>
             <input
               type="text"
               placeholder="username"
-              className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
+              className="border-b border-black p-3 focus:outline-none focus:border-red-400"
               id="username"
               defaultValue={currentUser.username}
               onChange={handleChange}
             />
+            <label
+              for="password"
+              className="mb-[-20px] text-blue-700 text-[12px] z-10 px-2 bg-white"
+            >
+              Password:
+            </label>
             <input
               type="password"
               placeholder="password"
-              className="border p-3 rounded-lg focus:outline-none focus:border-red-400"
+              className="border-b border-black p-3 focus:outline-none focus:border-red-400"
               id="password"
               defaultValue={currentUser.password}
               onChange={handleChange}
@@ -291,16 +306,10 @@ export default function Profile() {
             </span>
           </div>
 
-          <div className="w-full flex md:hidden justify-between bg-slate-200 p-2 rounded-sm mt-2">
-            <span
-              onClick={handleSignOut}
-              className="text-red-700 cursor-pointer hover:font-semibold"
-            >
-              Sign Out
-            </span>
+          <div className="w-full flex md:hidden justify-between bg-green-50 p-2 rounded-sm mt-2">
             <button
               onClick={handleShowListings}
-              className="text-green-700 text-right hover:font-semibold"
+              className="text-green-900 w-full text-center hover:font-semibold"
             >
               Show My Listings
             </button>
