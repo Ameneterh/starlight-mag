@@ -153,7 +153,7 @@ export default function Header() {
 
         {/* drop down navigation */}
         {nav && (
-          <div className="flex flex-col justify-center items-center w-full h-[50%] absolute top-10 right-0 bg-gray-950 opacity-95 gap-8 text-white font-bold z-10">
+          <div className="flex flex-col justify-center items-center w-full h-[50%] absolute top-10 right-0 bg-gray-950 opacity-95 gap-8 text-white font-bold z-20">
             <div className="">
               {currentUser ? (
                 <div className="h-16 w-16 flex flex-col gap-2 items-center border-l p-1 rounded-full">
@@ -178,7 +178,7 @@ export default function Header() {
             <div className="flex flex-col items-center justify-start gap-12 text-lg uppercase">
               {links.map((eachLink) => (
                 <Link
-                  id={eachLink.id}
+                  key={eachLink.id}
                   to={eachLink.url}
                   className="hover:underline hover:font-semibold underline-offset-8"
                   onClick={() => setNav(!nav)}
