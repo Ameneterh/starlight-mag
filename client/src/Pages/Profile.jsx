@@ -142,10 +142,9 @@ export default function Profile() {
   };
 
   return (
-    <main className="p-3 max-w-7xl mx-auto">
+    <main className="px-3 max-w-7xl mx-auto">
       <div className="w-full flex flex-col sm:flex-row gap-4">
-        {/* p-3 max-w-lg mx-auto */}
-        <div className="flex flex-col flex-1 p-3 max-w-lg md:border-r rounded-lg border-r-gray-400">
+        <div className="flex flex-col flex-1 p-8 max-w-lg border-b border-b-gray-400 md:border-r md:border-r-gray-400 md:border-b-0">
           {/* sign out and show listing md screens */}
           <div className="w-full hidden md:flex justify-between bg-green-50 p-2 rounded-lg">
             <button
@@ -324,7 +323,7 @@ export default function Profile() {
           )}
         </div>
 
-        <div className="flex flex-col flex-1 p-3">
+        <div className="flex flex-col flex-1 p-8">
           <Link
             className="bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95"
             to={"/create-listing"}

@@ -67,9 +67,9 @@ export default function Header() {
   };
 
   return (
-    <div className="w-full bg-slate-400 flex flex-col shadow-lg md:sticky top-0 left-0 z-30">
-      <div className="flex justify-center items-center w-full bg-[#943d24] p-1 border-b-[3px] border-slate-100">
-        <p className="text-white text-lg">
+    <div className="w-full flex flex-col shadow-lg md:sticky top-0 left-0 z-30">
+      <div className="flex justify-center items-center w-full bg-[#943d24] p-1 border-b-[2px] border-b-slate-200">
+        <p className="text-white text-lg truncate">
           Like stars, shine through the dark night sky
         </p>
       </div>
@@ -89,7 +89,7 @@ export default function Header() {
         <div className="">
           <form
             onSubmit={handleSubmit}
-            className="flex items-center justify-betweenw-[300px] md:w-[600px] h-10 rounded-full py-1 px-3 bg-white border-2 border-slate-200"
+            className="flex items-center justify-betweenw-[300px] md:w-[600px] h-10 rounded-full py-1 px-3 bg-white border border-gray-400"
           >
             <input
               type="text"
@@ -142,7 +142,7 @@ export default function Header() {
         {/* show on mobile */}
         <div
           onClick={() => setNav(!nav)}
-          className="flex md:hidden text-2xl z-20"
+          className="flex md:hidden text-2xl z-30"
         >
           {nav ? (
             <FaTimes size={30} className="text-white" />
@@ -153,7 +153,7 @@ export default function Header() {
 
         {/* drop down navigation */}
         {nav && (
-          <div className="flex flex-col justify-center items-center w-full h-[50%] absolute top-10 right-0 bg-gray-950 opacity-95 gap-8 text-white font-bold z-20">
+          <div className="md:hidden flex flex-col justify-center items-center w-full h-[50%] absolute top-10 right-0 bg-gray-950 opacity-95 gap-8 text-white font-bold z-20">
             <div className="">
               {currentUser ? (
                 <div className="h-16 w-16 flex flex-col gap-2 items-center border-l p-1 rounded-full">

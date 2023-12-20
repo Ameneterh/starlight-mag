@@ -39,7 +39,7 @@ export default function Listing() {
   }, [params.listingId]);
 
   return (
-    <main className="h-screen w-full px-2 md:px-10">
+    <main className="w-full px-2 md:px-10">
       {loading && <p className="text-center my-7 text-2xl">Loading ...</p>}
       {error && (
         <p className="flex flex-col gap-4 text-center my-7 text-2xl text-red-700">

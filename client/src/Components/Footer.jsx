@@ -38,25 +38,23 @@ export default function Footer() {
         </div>
         <div className="w-full md:w-1/3 flex flex-col items-center md:items-end gap-2 px-2 py-4">
           <h2 className="font-semibold text-lg">Link us on Social Media:</h2>
-          <div className="hidden md:flex flex-col">
-            <ul className="flex flex-col gap-1">
-              <li className="p-1 border-2 rounded-md bg-slate-400 hover:scale-110 transition-all">
-                <Link to="/" className="flex items-center gap-1 text-sm">
-                  <FaFacebook className="text-white text-2xl" /> Facebook
-                </Link>
-              </li>
-              <li className="p-1 border-2 rounded-md bg-slate-400 hover:scale-110 transition-all">
-                <Link to="/" className="flex items-center gap-1 text-sm">
-                  <FaYoutube className="text-white text-2xl" /> YouTube
-                </Link>
-              </li>
-              <li className="p-1 border-2 rounded-md bg-slate-400 hover:scale-110 transition-all">
-                <Link to="/" className="flex items-center gap-1 text-sm">
-                  <FaTwitter className="text-white text-2xl" /> Twitter (X)
-                </Link>
-              </li>
-            </ul>
-          </div>
+          <ul className="flex gap-4">
+            <li className="p-1 border border-black rounded-md hover:scale-110 transition-all">
+              <Link to="/" className="flex items-center gap-1 text-sm">
+                <FaFacebook className="text-black text-2xl" />
+              </Link>
+            </li>
+            <li className="p-1 border border-black rounded-md hover:scale-110 transition-all">
+              <Link to="/" className="flex items-center gap-1 text-sm">
+                <FaYoutube className="text-black text-2xl" />
+              </Link>
+            </li>
+            <li className="p-1 border border-black rounded-md hover:scale-110 transition-all">
+              <Link to="/" className="flex items-center gap-1 text-sm">
+                <FaTwitter className="text-black text-2xl" />
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
       <div className="w-full bg-black p-3 flex items-center justify-center">

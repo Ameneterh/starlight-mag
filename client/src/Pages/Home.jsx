@@ -14,7 +14,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col w-full ">
+    <div className="flex flex-col w-full">
       <div className="w-full bg-[url('/reading-book.gif')] bg-no-repeat bg-cover">
         <div className="w-[95%] md:w-[450px] bg-white opacity-95 p-8 mx-auto my-4 md:my-20 rounded-2xl border-[3px] flex flex-col gap-2 items-center">
           <h2 className="text-[20px] font-semibold">
@@ -29,7 +29,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-8 w-full bg-slate-700 p-2 md:p-20">
+      <div className="flex flex-col gap-8 w-full bg-slate-700  pb-10 p-2 md:p-20">
         <h2 className="mt-4 md:mt-0 text-2xl font-semibold text-white">
           Most Recent Post
         </h2>
