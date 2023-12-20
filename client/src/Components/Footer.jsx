@@ -22,19 +22,27 @@ export default function Footer() {
         </div>
         <div className="w-full md:w-1/3 flex flex-col items-center gap-2 px-2 py-4">
           <p className="font-semibold text-lg">Reach out to us:</p>
-          <p className="flex gap-1 items-center text-sm">
+          <div className="w-full flex gap-1 items-center text-sm">
             <FaLocationDot />
-            25 Liberty Street, Karatudu, Kaduna, Kaduna State
-          </p>
-          <p className="flex gap-1 items-center text-sm">
+            <p className="truncate">
+              25 Liberty Street, Karatudu, Kaduna, Kaduna State
+            </p>
+          </div>
+          <Link
+            to="mailto:contact@ssastarlight.com.ng"
+            className="flex gap-1 items-center text-sm"
+          >
             <MdMarkEmailRead />
             contact@ssastarlight.com.ng
-          </p>
-          <p className="flex gap-1 items-center text-sm">
+          </Link>
+          <Link
+            to="tel:2348154230654"
+            className="flex gap-1 items-center text-sm"
+          >
             <FaWhatsapp /> <MdCall />
             <MdTextsms />
             +2348154230654
-          </p>
+          </Link>
         </div>
         <div className="w-full md:w-1/3 flex flex-col items-center md:items-end gap-2 px-2 py-4">
           <h2 className="font-semibold text-lg">Link us on Social Media:</h2>
