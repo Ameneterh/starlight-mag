@@ -66,7 +66,10 @@ export default function Footer() {
         </div>
       </div>
       <div className="w-full bg-black p-3 flex items-center justify-center">
-        <p className="text-white font-sm">&copy; 2023 Amene Terhemen</p>
+        <p className="text-white text-[13px]">
+          &copy; 2023 Amene Terhemen,{" "}
+          <span className="text-[10px]">+2348154230654</span>
+        </p>
       </div>
     </div>
   );
