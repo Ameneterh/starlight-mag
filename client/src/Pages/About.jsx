@@ -28,12 +28,19 @@ export default function About() {
           shining the light, enriching the soul
         </span>
       </h1>
-      <div className="">
+      <div className="text-justify border-b-2 border-b-black pb-10">
         <p className="mb-4">
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat,
           libero, consectetur fuga beatae vitae officia suscipit ratione
           explicabo iste minima obcaecati cum laborum cumque laudantium deleniti
-          animi debitis blanditiis doloremque?
+          animi debitis blanditiis doloremque? Lorem ipsum dolor, sit amet
+          consectetur adipisicing elit. Dolores tempora consequuntur quaerat
+          iure debitis architecto eius corrupti cumque aspernatur ex esse quos
+          voluptatum, modi molestias voluptate quas eveniet? Vero, nulla? Lorem
+          ipsum dolor sit amet consectetur, adipisicing elit. Esse impedit
+          quaerat consequatur quisquam praesentium, quam temporibus eaque
+          laudantium libero consectetur rerum deserunt vero odit ratione quas,
+          excepturi autem! Doloribus, aspernatur!
         </p>
         <p className="mb-4">
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat,
@@ -45,7 +52,29 @@ export default function About() {
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat,
           libero, consectetur fuga beatae vitae officia suscipit ratione
           explicabo iste minima obcaecati cum laborum cumque laudantium deleniti
-          animi debitis blanditiis doloremque?
+          animi debitis blanditiis doloremque? Lorem ipsum dolor, sit amet
+          consectetur adipisicing elit. Ipsam cupiditate sint perferendis eos,
+          cumque impedit non libero, sit accusantium veritatis natus mollitia
+          ab, maiores cum quos totam nisi placeat aspernatur. Lorem ipsum, dolor
+          sit amet consectetur adipisicing elit. Eaque deleniti facilis at
+          atque, voluptas quae quia. Facilis, quasi architecto. Provident,
+          numquam! Eius odio molestias magnam dignissimos sint, voluptatibus
+          dicta assumenda.
+        </p>
+
+        <h1 className="text-2xl text-slate-800 font-bold mt-10">Mission</h1>
+        <p className="mb-4">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
+          numquam velit quia quo ut ducimus distinctio magni tempore. Dolores
+          beatae quo, laudantium eos reprehenderit sed alias iusto perspiciatis?
+          Fuga, culpa!
+        </p>
+        <h1 className="text-2xl text-slate-800 font-bold mt-10">Vision</h1>
+        <p className="mb-4">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
+          numquam velit quia quo ut ducimus distinctio magni tempore. Dolores
+          beatae quo, laudantium eos reprehenderit sed alias iusto perspiciatis?
+          Fuga, culpa!
         </p>
       </div>
       <div className="w-full">
